@@ -15,7 +15,7 @@ namespace Template
         private Texture2D _texture;
         private Vector2 position;
         private Input input;
-        private float speed = 10f;
+        private float speed = 2f/60f;
 
         public Vector2 Position { get { return position; } set { position = value; } } //gör så man kan använda private variablar
         public Input Input { get { return input; } set { input = value; } }
@@ -23,7 +23,11 @@ namespace Template
         {
             _texture = texture;
         }
-        private void Move()
+        public void Update()
+        {
+            _spelare();
+        }
+            private void _spelare()
         {
             if (input == null)
                 return;

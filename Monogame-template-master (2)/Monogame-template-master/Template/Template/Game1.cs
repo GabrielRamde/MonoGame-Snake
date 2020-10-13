@@ -16,7 +16,7 @@ namespace Template
         public static int bredd;
         public static int hojd;
 
-        private List<Sprite> _sprites;
+        private Sprite spelare;
         private float speed = 10f;
 
         private Texture2D background;
@@ -65,19 +65,16 @@ namespace Template
             _texturefood2 = Content.Load<Texture2D>("-1apple");
             _texturefood3 = Content.Load<Texture2D>("deadmushroom");
 
-            _sprites = new List<Sprite>()
+            spelare = new Sprite(_texture)
             {
-                new Sprite(_texture)
+                Position = new Vector2(0, 0), //position
+                Input = new Input() //vilka knappar som är tillgängliga
                 {
-                    Position = new Vector2(0, 300), //position
-                    Input = new Input() //vilka knappar som är tillgängliga
-                    {
-                        Up = Keys.W,
-                        Down = Keys.S,
-                        Left = Keys.A,
-                        Right = Keys.D,
-                    }
-                },
+                    Up = Keys.W,
+                    Down = Keys.S,
+                    Left = Keys.A,
+                    Right = Keys.D,
+                }
             };
         }
                 // TODO: use this.Content to load your game content here 
@@ -101,6 +98,8 @@ namespace Template
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            spelare.Update();
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -118,6 +117,9 @@ namespace Template
             backgroundRec.Location = backgroundpos.ToPoint();
             backgroundRec.Size = new Point(bredd, hojd);
             spriteBatch.Draw(background, backgroundRec, Color.White);
+
+            spriteBatch.Draw(_texture, _position, new Rectangle(0, 0, 80, 80), Color.White);
+
             spriteBatch.End();
 
             // TODO: Add your drawing code here.
